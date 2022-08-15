@@ -27,11 +27,11 @@ create_vps(){
     echo -e "[2] Japan ( Japan East )"
     echo -e "[3] Korea ( Korea South )"
     read -p "(please select the area you want to create)" area
-    if [[ area == 1 ]]; then
+    if [[ area == "1" ]]; then
         area = "eastasia"
-    elif [[ area == 2 ]]; then
+    elif [[ area == "2" ]]; then
         area = "japaneast"
-    elif [[ area == 3 ]]; then
+    elif [[ area == "3" ]]; then
         area = "koreacentral"
     else
         echo -e "${red}Error:${plain} Please input a number [1-3]"
@@ -42,9 +42,9 @@ create_vps(){
     echo -e "[1] Ubuntu 20.04 LTS ( Gen 2 )"
     echo -e "[2] CentOS 7.9 ( Gen 2 )"
     read -p "(Please select a image you want Create  :):" image
-    if [[ image == 1 ]]; then
+    if [[ image == "1" ]]; then
         image = "ubuntu-hpc:ubuntu-20.04:2004:20.04.2021051401"
-    elif [[ image == 2 ]]; then
+    elif [[ image == "2" ]]; then
         image = "OpenLogic:CentOS-HPC:7_9-gen2:7.9.2021052401"
     else
         echo -e "${red}Error:${plain} Please input a number [1-2]"
@@ -58,15 +58,15 @@ create_vps(){
     echo -e "[4] Standard_D2s_v3 ( 2 vCPU, 8GB memory )"
     echo -e "[5] Standard_B1ls ( 1 vCPU, 0,5GB memory )"
     read -p " Choose the VPS Size to create :" size
-    if [[ size == 1 ]]; then
+    if [[ size == "1" ]]; then
         size = "Standard_B1s"
-    elif [[ size == 2 ]]; then
+    elif [[ size == "2" ]]; then
         size = "Standard_B2s"
-    elif [[ size == 3 ]]; then
+    elif [[ size == "3" ]]; then
         size = "Standard_B4ms"
-    elif [[ size == 4 ]]; then
+    elif [[ size == "4" ]]; then
         size = "Standard_D2s_v3"
-    elif [[ size == 5 ]]; then
+    elif [[ size == "5" ]]; then
         size = "Standard_B1ls"
     else
         echo -e "${red}Error:${plain} Please input a number [1-5]"
