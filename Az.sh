@@ -17,10 +17,6 @@ create_a_group() {
 }
 
 create_vps(){
-    az vm create -n $vpsname -l $area -g $namegroup --image $image --size $size --admin-password $password --admin-username $username --public-ip-sku Standard
-}
-
-create_vps(){
     read -p "(Please input a VPS name:):" vpsname
     [ -z "$vpsname" ] && vpsname="aiko"
 
@@ -96,7 +92,6 @@ show_menu() {
   ${green}2.${plain} Create VPS on an existing Group
 ————————————————
  "
-    show_status
     echo && read -p "Please enter an option [0-4]: " num
 
     case "${num}" in
