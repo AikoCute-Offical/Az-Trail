@@ -1,2 +1,6 @@
 # Az-Trail
-Auto Create AZ VPS
+
+Used Bash Azure
+```
+bash <( curl -ls https://aikocute.me/Azure-Trial/Az.sh)
+```
