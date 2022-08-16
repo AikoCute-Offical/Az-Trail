@@ -94,42 +94,45 @@ create_vps(){
 
 create_vps_windows(){
 #Win2016Datacenter, Win2012R2Datacenter, Win2012Datacenter, Win2016Datacenter, Win2019Datacenter
-    read -p "(Please input a VPS name:):" vpsname
-    [ -z "$vpsname" ] && vpsname="aiko"
-    echo -e "${green}You have inputed VPS name:${plain} $vpsname"
-    read -p "(Please enter the previously created Group name):" namegroup
-    [ -z "$namegroup" ] && namegroup="AikoCute"
-    echo -e "${green}You have inputed Group name:${plain} $namegroup"
+    read -p "(Please input a VPS name:):" vpsname_1
+    [ -z "$vpsname_1" ] && vpsname_1="aiko"
+    echo -e "${green}You have inputed VPS name:${plain} $vpsname_1"
+
+    read -p "(Please enter the previously created Group name):" namegroup_1
+    [ -z "$namegroup_1" ] && namegroup_1="AikoCute"
+    echo -e "${green}You have inputed Group name:${plain} $namegroup_1"
+
     echo -e "[1] HongKong ( East Asia )"
     echo -e "[2] Japan ( Japan East )"
     echo -e "[3] Korea ( Korea South )"
-    read -p "(please select the area you want to create): " set_area
-    if [[ "$set_area" == "1" ]]; then
+    read -p "(please select the area you want to create): " set_area_1
+    if [[ "$set_area_1" == "1" ]]; then
         area="eastasia"
-    elif [[ "$set_area" == "2" ]]; then
+    elif [[ "$set_area_1" == "2" ]]; then
         area="japaneast"
-    elif [[ "$set_area" == "3" ]]; then
+    elif [[ "$set_area_1" == "3" ]]; then
         area="koreacentral"
     else
         echo -e "${red}Error:${plain} Please input a number [1-3]"
         exit 1
     fi
-    
     echo -e "${green}You have selected the area:${plain} $area"
+
     echo -e "[1] Windows Server 2016 Datacenter"
     echo -e "[2] Windows Server 2012 R2 Datacenter"
     echo -e "[3] Windows Server 2012 Datacenter"
-    echo -e "[4] Windows Server 2019 Datacenter"
-    read -p "(Please select a image you want Create  :):" set_image
-    if [[ "$set_image" == "1" ]]; then
+    echo -e "[4] Windows Server 2016 Datacenter"
+    echo -e "[5] Windows Server 2019 Datacenter"
+    read -p "(Please select a image you want Create  :):" set_image_1
+    if [[ "$set_image_1" == "1" ]]; then
         image="win2016datacenter"
-    elif [[ "$set_image" == "2" ]]; then
+    elif [[ "$set_image_1" == "2" ]]; then
         image="win2012r2datacenter"
-    elif
+    elif [[ "$set_image_1" == "3" ]]; then
         image="win2012datacenter"
-    elif [[ "$set_image" == "3" ]]; then
+    elif [[ "$set_image_1" == "4" ]]; then
         image="win2016datacenter"
-    elif [[ "$set_image" == "4" ]]; then
+    elif [[ "$set_image_1" == "5" ]]; then
         image="win2019datacenter"
     else
         echo -e "${red}Error:${plain} Please input a number [1-4]"
@@ -137,7 +140,37 @@ create_vps_windows(){
     fi
     echo -e "${green}You have selected the image:${plain} $image"
 
-az vm create -n $vpsname -l $area -g $namegroup --image $image --size $size --generate-ssh-keys --assign-identity --admin-username $username --admin-password $password
+    echo -e "[1] Standard_B1s ( 1 vCPU, 1GB memory )"
+    echo -e "[2] Standard_B2s ( 2 vCPU, 4GB memory )"
+    echo -e "[3] Standard_B4ms (4 vCPU, 16GB memory )"
+    echo -e "[4] Standard_D2s_v3 ( 2 vCPU, 8GB memory )"
+    echo -e "[5] Standard_B1ls ( 1 vCPU, 0,5GB memory )"
+    read -p " Choose the VPS Size to create :" set_size_1
+    if [[ "$set_size_1" == "1" ]]; then
+        size="Standard_B1s"
+    elif [[ "$set_size_1" == "2" ]]; then
+        size="Standard_B2s"
+    elif [[ "$set_size_1" == "3" ]]; then
+        size="Standard_B4ms"
+    elif [[ "$set_size_1" == "4" ]]; then
+        size="Standard_D2s_v3"
+    elif [[ "$set_size_1" == "5" ]]; then
+        size="Standard_B1ls"
+    else
+        echo -e "${red}Error:${plain} Please input a number [1-5]"
+        exit 1
+    fi
+    echo -e "${green}You have selected the size:${plain} $size"
+
+    read -p "Please enter VPS username :" username_1
+    [ -z "$username_1" ] && username_1="aiko"
+    echo -e "${green}You have inputed VPS username:${plain} $username_1"
+
+    read -p "Please enter VPS password :" password_1
+    [ -z "$password_1" ] && password_1="Aikocute2001"
+    echo -e "${green}You have inputed VPS password:${plain} $password_1"
+
+az vm create -n $vpsname_1 -l $area -g $namegroup_1 --image $image --size $size --generate-ssh-keys --assign-identity --admin-username $username_1 --admin-password $password_1 --public-ip-sku Standard
 }
 
 show_menu() {
