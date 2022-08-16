@@ -45,13 +45,16 @@ create_vps(){
 
     echo -e "[1] Ubuntu 20.04 LTS ( Gen 2 )"
     echo -e "[2] CentOS 7.9 ( Gen 2 )"
+    echo -e "[3] CentOS 7.9 ( ARM64 )"
     read -p "(Please select a image you want Create  :):" set_image
     if [[ "$set_image" == "1" ]]; then
         image="ubuntu-hpc:ubuntu-20.04:2004:20.04.2021051401"
     elif [[ "$set_image" == "2" ]]; then
         image="OpenLogic:CentOS-HPC:7_9-gen2:7.9.2021052401"
+    elif [[ "$set_image" == "3" ]]; then
+        image="OpenLogic:CentOS:7_9-arm64:7.9.2022062702"
     else
-        echo -e "${red}Error:${plain} Please input a number [1-2]"
+        echo -e "${red}Error:${plain} Please input a number [1-3]"
         exit 1
     fi
     echo -e "${green}You have selected the image:${plain} $image"
