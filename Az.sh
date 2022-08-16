@@ -92,6 +92,54 @@ create_vps(){
     az vm create -n $vpsname -l $area -g $namegroup --image $image --size $size --admin-password $password --admin-username $username --public-ip-sku Standard
 }
 
+create_vps_windows(){
+#Win2016Datacenter, Win2012R2Datacenter, Win2012Datacenter, Win2016Datacenter, Win2019Datacenter
+    read -p "(Please input a VPS name:):" vpsname
+    [ -z "$vpsname" ] && vpsname="aiko"
+    echo -e "${green}You have inputed VPS name:${plain} $vpsname"
+    read -p "(Please enter the previously created Group name):" namegroup
+    [ -z "$namegroup" ] && namegroup="AikoCute"
+    echo -e "${green}You have inputed Group name:${plain} $namegroup"
+    echo -e "[1] HongKong ( East Asia )"
+    echo -e "[2] Japan ( Japan East )"
+    echo -e "[3] Korea ( Korea South )"
+    read -p "(please select the area you want to create): " set_area
+    if [[ "$set_area" == "1" ]]; then
+        area="eastasia"
+    elif [[ "$set_area" == "2" ]]; then
+        area="japaneast"
+    elif [[ "$set_area" == "3" ]]; then
+        area="koreacentral"
+    else
+        echo -e "${red}Error:${plain} Please input a number [1-3]"
+        exit 1
+    fi
+    
+    echo -e "${green}You have selected the area:${plain} $area"
+    echo -e "[1] Windows Server 2016 Datacenter"
+    echo -e "[2] Windows Server 2012 R2 Datacenter"
+    echo -e "[3] Windows Server 2012 Datacenter"
+    echo -e "[4] Windows Server 2019 Datacenter"
+    read -p "(Please select a image you want Create  :):" set_image
+    if [[ "$set_image" == "1" ]]; then
+        image="win2016datacenter"
+    elif [[ "$set_image" == "2" ]]; then
+        image="win2012r2datacenter"
+    elif
+        image="win2012datacenter"
+    elif [[ "$set_image" == "3" ]]; then
+        image="win2016datacenter"
+    elif [[ "$set_image" == "4" ]]; then
+        image="win2019datacenter"
+    else
+        echo -e "${red}Error:${plain} Please input a number [1-4]"
+        exit 1
+    fi
+    echo -e "${green}You have selected the image:${plain} $image"
+
+az vm create -n $vpsname -l $area -g $namegroup --image $image --size $size --generate-ssh-keys --assign-identity --admin-username $username --admin-password $password
+}
+
 show_menu() {
     echo -e "
   ${green} Tool to create VPS on Azure via Bash，${plain}${red}No need to use Root privileges${plain}
@@ -100,6 +148,7 @@ show_menu() {
 ————————————————
   ${green}1.${plain} Create a group
   ${green}2.${plain} Create VPS on an existing Group
+  ${green}3.${plain} Create VPS Windows
 ————————————————
  "
     echo && read -p "Please enter an option [0-4]: " num
@@ -110,6 +159,8 @@ show_menu() {
         1) create_a_group
         ;;
         2) create_vps
+        ;;
+        3) create_vps_windows
         ;;
         *) echo -e "${red}Please enter the correct number [0-2]${plain}"
         ;;
