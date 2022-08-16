@@ -90,6 +90,19 @@ create_vps(){
     echo -e "${green}You have inputed VPS password:${plain} $password"
 
     az vm create -n $vpsname -l $area -g $namegroup --image $image --size $size --admin-password $password --admin-username $username --public-ip-sku Standard
+    echo -e "Create VPS $vpsname successfully!"
+
+    echo -e "Do you Want Unlock port VPS? (80,443) [y/n]"
+    read -p "(Default: y):" unlock_port
+    if [ -z "$unlock_port" ]; then
+        unlock_port="y"
+    fi
+    if [[ "$unlock_port" == "y" ]]; then
+        az vm open-port --port 80 --resource-group $namegroup --name $vpsname --priority 123
+        az vm open-port --port 443 --resource-group $namegroup --name $vpsname --priority 124
+        echo -e "Unlock port successfully!"
+    fi
+    show_menu
 }
 
 create_vps_windows(){
@@ -173,6 +186,24 @@ create_vps_windows(){
 az vm create -n $vpsname_1 -l $area -g $namegroup_1 --image $image --size $size --generate-ssh-keys --assign-identity --admin-username $username_1 --admin-password $password_1 --public-ip-sku Standard
 }
 
+openport(){
+    read -p "Pls input the Name you want to open port :" name_3
+    [ -z "$name_3" ] && name_3="aiko"
+
+    read -p "Pls input the Group name you want to open port :" namegroup_2
+    [ -z "$namegroup_2" ] && namegroup_2="AikoCute"
+
+    read -p "Pls input the port you want to open :" port_4
+    [ -z "$port_4" ] && port_4="22"
+
+    read -p "Pls input the priority you want to open :" priority
+    [ -z "$priority" ] && priority="100"
+
+    #Priority is important, if you want to open port 80 and 443, you must open port 80 first.
+
+    az vm open-port --resource-group $namegroup_2 --name $name_3 --port $port_4 --priority $priority
+}
+
 show_menu() {
     echo -e "
   ${green} Tool to create VPS on Azure via Bash，${plain}${red}No need to use Root privileges${plain}
@@ -182,6 +213,7 @@ show_menu() {
   ${green}1.${plain} Create a group
   ${green}2.${plain} Create VPS on an existing Group
   ${green}3.${plain} Create VPS Windows
+  ${green}4.${plain} Quick OpenPort VPS
 ————————————————
  "
     echo && read -p "Please enter an option [0-4]: " num
@@ -195,7 +227,9 @@ show_menu() {
         ;;
         3) create_vps_windows
         ;;
-        *) echo -e "${red}Please enter the correct number [0-2]${plain}"
+        4) openport
+        ;;
+        *) echo -e "${red}Please enter the correct number [0-4]${plain}"
         ;;
     esac
 }
