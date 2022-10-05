@@ -29,6 +29,7 @@ create_vps(){
     echo -e "[1] HongKong ( East Asia )"
     echo -e "[2] Japan ( Japan East )"
     echo -e "[3] Korea ( Korea South )"
+    echo -e "[4] Singapore (Southeast Asia)"
     read -p "(please select the area you want to create): " set_area
     if [[ "$set_area" == "1" ]]; then
         area="eastasia"
@@ -36,6 +37,8 @@ create_vps(){
         area="japaneast"
     elif [[ "$set_area" == "3" ]]; then
         area="koreacentral"
+    elif [[ "$set_area_1" == "4" ]]; then
+        area="southeastasia"
     else
         echo -e "${red}Error:${plain} Please input a number [1-3]"
         exit 1
@@ -115,7 +118,6 @@ create_vps_windows(){
     echo -e "[1] HongKong ( East Asia )"
     echo -e "[2] Japan ( Japan East )"
     echo -e "[3] Korea ( Korea South )"
-    # Singapore
     echo -e "[4] Singapore (Southeast Asia)"
     read -p "(please select the area you want to create): " set_area_1
     if [[ "$set_area_1" == "1" ]]; then
@@ -125,7 +127,7 @@ create_vps_windows(){
     elif [[ "$set_area_1" == "3" ]]; then
         area="koreacentral"
     elif [[ "$set_area_1" == "4" ]]; then
-        area=southeastasia
+        area="southeastasia"
     else
         echo -e "${red}Error:${plain} Please input a number [1-3]"
         exit 1
