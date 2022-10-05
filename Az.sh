@@ -37,10 +37,10 @@ create_vps(){
         area="japaneast"
     elif [[ "$set_area" == "3" ]]; then
         area="koreacentral"
-    elif [[ "$set_area_1" == "4" ]]; then
+    elif [[ "$set_area" == "4" ]]; then
         area="southeastasia"
     else
-        echo -e "${red}Error:${plain} Please input a number [1-3]"
+        echo -e "${red}Error:${plain} Please input a number [1-4]"
         exit 1
     fi
     echo -e "${green}You have selected the area:${plain} $area"
@@ -129,7 +129,7 @@ create_vps_windows(){
     elif [[ "$set_area_1" == "4" ]]; then
         area="southeastasia"
     else
-        echo -e "${red}Error:${plain} Please input a number [1-3]"
+        echo -e "${red}Error:${plain} Please input a number [1-4]"
         exit 1
     fi
     echo -e "${green}You have selected the area:${plain} $area"
