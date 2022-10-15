@@ -199,12 +199,10 @@ openport(){
     read -p "Pls input the port you want to open :" port_4
     [ -z "$port_4" ] && port_4="22"
 
-    read -p "Pls input the priority you want to open :" priority
-    [ -z "$priority" ] && priority="100"
-
-    #Priority is important, if you want to open port 80 and 443, you must open port 80 first.
-
+    #create random number for priority
+    priority=$(shuf -i 100-999 -n 1)
     az vm open-port --resource-group $namegroup_2 --name $name_3 --port $port_4 --priority $priority
+
 }
 
 show_menu() {
